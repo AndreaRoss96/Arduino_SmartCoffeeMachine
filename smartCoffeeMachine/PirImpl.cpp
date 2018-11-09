@@ -6,6 +6,6 @@ PirImpl::PirImpl(int pin){
   pinMode(pin,INPUT);
 }
 
-int PirImpl::getValue(){
+float PirImpl::getValue(){
   return digitalRead(pin);
 };

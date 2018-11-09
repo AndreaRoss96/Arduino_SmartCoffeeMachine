@@ -6,7 +6,7 @@
 class Sonar: public Sensor {
 public:
   Sonar(int pinEcho, int pinTrig);
-  int getValue();
+  float getValue();
 private:
   int pinEcho;
   int pinTrig;

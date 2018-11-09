@@ -3,7 +3,7 @@
 
 class Sensor {
 public:
-  virtual int getValue() = 0;
+  virtual float getValue() = 0;
 };
 
 #endif

@@ -5,6 +5,6 @@ Potentiometer::Potentiometer(int pin){
   this->pin = pin;
 }
 
-int Potentiometer::getValue(){
+float Potentiometer::getValue(){
   return analogRead(pin);
 };

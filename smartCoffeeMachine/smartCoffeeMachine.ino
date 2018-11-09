@@ -1,9 +1,12 @@
+#include "Sonar.h"
+Sonar* s;
 void setup() {
-  // put your setup code here, to run once:
-
+  s = new Sonar(8,7);
+  Serial.begin(9600);
+  Serial.println("stronzo");
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-
+  Serial.println(s->getValue());
+  delay(1000);
 }

@@ -6,7 +6,7 @@
 class Potentiometer: public Sensor{
 public:
   Potentiometer(int pin);
-  int getValue();
+  float getValue();
 
 private:
   int pin;
