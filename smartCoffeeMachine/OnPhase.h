@@ -2,14 +2,19 @@
 #define __ONPHASE__
 
 #include "Phase.h"
+#include "PirImpl.h"
+#include "Sonar.h"
+
 
 class OnPhase: public Phase {
 public:
-  OnPhase(Sensor pir, Sonar sonar);
-  void update();  // modificare void con Filo
+  OnPhase(PirImpl& pir, Sonar& sonar);
+  bool updateAndCheckTime();
 private:
-  Sensor pir;
-  Sonar sonar;
+  PirImpl& pir;
+  Sonar& sonar;
+  int myPeriodAscent;
+  int myperiodDiscent;
 };
 
 #endif
