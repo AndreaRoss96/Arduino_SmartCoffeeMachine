@@ -10,20 +10,32 @@
 
 class GlobalClass {
   EnumPhase actualPhase;
-
-  public:
-    static GlobalClass& getInstance() {
-        static GlobalClass instance;
-        return instance;
-    }
+  static GlobalClass *gbInstance;
 
   private:
       GlobalClass() {}
   public:
+    /*
+    return
+      The instance of the globalClass
+    */
+    static GlobalClass *getInstance() {
+      if(!gbInstance)
+        gbInstance = new GlobalClass;
+      return gbInstance;
+    }
+
+    /*
+    Set the actual Phase
+    */
     void setActualPhase(EnumPhase phase) {
       this->actualPhase = phase;
     }
 
+    /*
+    return
+      the actual phase
+    */
     EnumPhase getActualPhase() {
       return actualPhase;
     }
