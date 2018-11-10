@@ -1,13 +1,13 @@
 #ifndef __PHASE__
 #define __PHASE__
 
-#include "EnumPhase.h"
+#include "GlobalClass.h"
 
 class Phase {
 public:
-  virtual bool updateAndCheckTime(int basePeriod);
+  virtual bool updateAndCheckTime(int basePeriod) = 0;
   virtual void tick() = 0;
-private:
+protected:
   EnumPhase myPhase;
 };
 
