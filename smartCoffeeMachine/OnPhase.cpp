@@ -2,9 +2,10 @@
 #include "Arduino.h"
 //ricordarsi di distinguere ON_ASCENT e ON_DISCENT che hanno tempi diversi
 //time_t start_t, end_t;
-OnPhase::OnPhase(PirImpl& pir, Sonar& sonar){
-  this -> pir = pir;
-  this -> sonar = sonar;
+OnPhase::OnPhase(PirImpl* pir, Sonar* sonar)
+{
+  // this -> pir = pir;
+  // this -> sonar = sonar;
   this -> myPeriodAscent = GlobalClass::getInstance()->getDT1();
   this -> myperiodDiscent = GlobalClass::getInstance()->getDT2B();
   myPhase = EnumPhase::ON;

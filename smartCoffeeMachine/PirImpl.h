@@ -7,7 +7,7 @@ class PirImpl: public Sensor{
 public:
   PirImpl(int pin);
   float getValue();
-
+  int getPin();
 private:
   int pin;
 };

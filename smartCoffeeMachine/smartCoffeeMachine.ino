@@ -1,35 +1,26 @@
-#include "PirImpl.h"
+#include "Sleep.h"
+#include "Sonar.h"
+#include "OnPhase.h"
+#include "Scheduler.h"
 
-int ledPin = 13;
-PirImpl* s;
-int pirState = LOW;             // we start, assuming no motion detected
-int val = 0;                    // variable for reading the pin status
+Scheduler* scheduler;
 
 void setup() {
-  s = new PirImpl(2);
-  pinMode(ledPin, OUTPUT);      // declare LED as output
+  PirImpl* pir = new PirImpl(2);
+  Sonar* sonar = new Sonar(8, 9);
+
+  Phase* sleep = new Sleep(pir);
+  Phase* on = new OnPhase(pir, sonar);
+
+  scheduler->init(1000); //viene chiamato lo scheduler 100 volte/s
+  scheduler->addPhase(sleep);
+  scheduler->addPhase(on);
+
   Serial.begin(9600);
   Serial.println("stronzo");
 }
 
 void loop(){
-  val = s->getValue();  // read input value
-  if (val == HIGH) {            // check if the input is HIGH
-    digitalWrite(ledPin, HIGH);  // turn LED ON
-    if (pirState == LOW) {
-      // we have just turned on
-      Serial.println("Motion detected!");
-      // We only want to print on the output change, not state
-      pirState = HIGH;
-    }
-  } else {
-    digitalWrite(ledPin, LOW); // turn LED OFF
-    if (pirState == HIGH){
-      // we have just turned of
-      Serial.println("Motion ended!");
-      // We only want to print on the output change, not state
-      pirState = LOW;
-    }
-  }
-  delay(10);
+    Serial.println("cani neri");
+    scheduler->schedule();
 }

@@ -7,7 +7,7 @@
 
 class OnPhase: public Phase {
 public:
-  OnPhase(PirImpl& pir, Sonar& sonar);
+  OnPhase(PirImpl* pir, Sonar* sonar);
   bool updateAndCheckTime(int basePeriod);
   void tick();
 private:

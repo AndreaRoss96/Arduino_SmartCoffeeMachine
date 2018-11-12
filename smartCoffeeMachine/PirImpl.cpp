@@ -8,4 +8,8 @@ PirImpl::PirImpl(int pin){
 
 float PirImpl::getValue(){
   return digitalRead(pin);
+}
+
+int PirImpl::getPin(){
+    return pin;    
 };
