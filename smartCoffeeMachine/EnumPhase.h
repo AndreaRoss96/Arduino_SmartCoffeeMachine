@@ -1,4 +1,5 @@
 enum class EnumPhase{
+  SLEEP,
   ON,         //STATE OF ON PHASE
   ON_ASCENT,  //FROM SLEEP TO ON
   ON_DISCENT, //FROM READY TO SLEEP
