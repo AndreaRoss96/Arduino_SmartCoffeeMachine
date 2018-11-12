@@ -9,8 +9,8 @@
 #include "EnumPhase.h"
 
 class GlobalClass {
-  EnumPhase actualPhase;
-  static GlobalClass *gbInstance;
+  EnumPhase actualPhase = EnumPhase::SLEEP;
+  // static GlobalClass *gbInstance;
 
   private:
       GlobalClass() {}
@@ -19,10 +19,14 @@ class GlobalClass {
     return
       The instance of the globalClass
     */
-    static GlobalClass *getInstance() {
-      if(!gbInstance)
-        gbInstance = new GlobalClass;
-      return gbInstance;
+    // static GlobalClass *getInstance() {
+    //   if(!gbInstance)
+    //     gbInstance = new GlobalClass();
+    //   return gbInstance;
+    // }
+    static GlobalClass& getInstance() {
+        static GlobalClass gbInstance;
+        return gbInstance;
     }
 
     /*
@@ -97,4 +101,4 @@ class GlobalClass {
     }
 };
 
-// GlobalClass::getInstance()->function();
+// GLOBAL_CLASS.function();

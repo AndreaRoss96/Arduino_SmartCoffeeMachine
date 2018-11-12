@@ -7,7 +7,7 @@ ThreeLedShow::ThreeLedShow(int pin0, int pin1, int pin2) {
     for (int i = 0; i < 3; i++){
       led[i] = new Led(pin[i]);
     }
-    this->myPeriod = GlobalClass::getInstance()->getDT3() / 3;
+    this->myPeriod = GlobalClass::getInstance().getDT3() / 3;
 }
 
 void ThreeLedShow::startShow() {

@@ -17,7 +17,8 @@ bool Scheduler::addPhase(Phase* phase){
 void Scheduler::schedule(){
    timer.waitForNextTick();
    for (int i = 0; i < nPhases; i++){
-     if (phaseList[i]->updateAndCheckTime(basePeriod)){
+       if (phaseList[i]->updateAndCheckTime(100)){
+     // if (phaseList[i]->updateAndCheckTime(basePeriod)){
        phaseList[i]->tick();
      }
    }

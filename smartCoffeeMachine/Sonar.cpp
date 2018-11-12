@@ -1,5 +1,5 @@
 #include "Sonar.h"
-#include "Arduino.h"
+
 const float vs = 331.5 + 0.6*20;
 
 Sonar::Sonar(int pinEcho, int pinTrig){
@@ -7,6 +7,8 @@ Sonar::Sonar(int pinEcho, int pinTrig){
   this->pinTrig = pinTrig;
   pinMode(pinTrig,OUTPUT);
   pinMode(pinEcho,INPUT);
+
+  Serial.println("Sonar");
 }
 
 float Sonar::getValue(){

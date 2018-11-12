@@ -1,6 +1,8 @@
 #ifndef __PHASE__
 #define __PHASE__
 
+#define GLOBAL_CLASS GlobalClass::getInstance()
+
 #include "GlobalClass.h"
 
 class Phase {

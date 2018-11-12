@@ -11,8 +11,8 @@ public:
   bool updateAndCheckTime(int basePeriod);
   void tick();
 private:
-  PirImpl& pir;
-  Sonar& sonar;
+  PirImpl* pir;
+  Sonar* sonar;
   int myPeriodAscent;
   int myperiodDiscent;
   int timeElapsed;
