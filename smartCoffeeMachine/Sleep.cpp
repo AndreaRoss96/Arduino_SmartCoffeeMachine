@@ -13,13 +13,12 @@ void Sleep::tick(){
     Serial.println("GOING IN POWER DOWN IN 0s ...");
     Serial.flush();
 
-    attachInterrupt(digitalPinToInterrupt(pin), wakeUp, CHANGE); //quando il pin rileva un movimento sveglia il dispositivo
+    attachInterrupt(digitalPinToInterrupt(pin), wakeUp, RISING); //quando il pin rileva un movimento sveglia il dispositivo
 
-    //set_sleep_mode(SLEEP_MODE_PWR_DOWN); //setta la modalità di sleep
-    set_sleep_mode(SLEEP_MODE_STANDBY);
+    set_sleep_mode(SLEEP_MODE_PWR_DOWN); //setta la modalità di sleep
     sleep_enable(); //abilita le sleep
 
-    sleep_cpu();//VA A DROMIRE
+    sleep_mode();//VA A DROMIRE
 
     Serial.println("ueic ap");
     Serial.flush();
@@ -34,6 +33,6 @@ void Sleep::tick(){
 }
 
 void Sleep::wakeUp() {
-    Serial.println("Interrupttt");
+    Serial.println("Interrupt");
         Serial.flush();
 };
