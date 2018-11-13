@@ -26,7 +26,7 @@ void Sleep::tick(){
     sleep_disable(); //disabilita la sleep
     detachInterrupt(digitalPinToInterrupt(pin));
 
-    //GLOBAL_CLASS.setActualPhase(EnumPhase::ON); //passa alla fase on
+    GLOBAL_CLASS.setActualPhase(EnumPhase::ON); //passa alla fase on
 }
 
 void Sleep::wakeUp() {

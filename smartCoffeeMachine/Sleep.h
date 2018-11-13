@@ -4,7 +4,6 @@
 
 #include "Phase.h"
 #include "PirImpl.h"
-#include "Arduino.h"
 #include <avr/sleep.h>
 
 class Sleep: public Phase {

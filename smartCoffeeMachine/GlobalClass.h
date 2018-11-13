@@ -7,10 +7,10 @@
 #define DT4 5000
 
 #include "EnumPhase.h"
+#include "Arduino.h"
 
-class GlobalClass {
+class GlobalClass { //SINGLETON
   EnumPhase actualPhase = EnumPhase::SLEEP;
-  // static GlobalClass *gbInstance;
 
   private:
       GlobalClass() {}
@@ -19,11 +19,6 @@ class GlobalClass {
     return
       The instance of the globalClass
     */
-    // static GlobalClass *getInstance() {
-    //   if(!gbInstance)
-    //     gbInstance = new GlobalClass();
-    //   return gbInstance;
-    // }
     static GlobalClass& getInstance() {
         static GlobalClass gbInstance;
         return gbInstance;
@@ -100,5 +95,3 @@ class GlobalClass {
       return DT4;
     }
 };
-
-// GLOBAL_CLASS.function();
