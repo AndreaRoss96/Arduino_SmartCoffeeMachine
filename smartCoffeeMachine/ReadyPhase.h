@@ -8,15 +8,18 @@
 
 class ReadyPhase: public Phase {
 public:
-  ReadyPhase(Sonar& sonar, Potentiometer& Potentiometer, ButtonImpl& button);
+  ReadyPhase(Sonar* sonar, Potentiometer* potentiometer, ButtonImpl* button);
   bool updateAndCheckTime(int basePeriod);
   void tick();
 private:
-  Sonar& sonar;
-  Potentiometer& Potentiometer;
-  ButtonImpl& button;
+  Sonar* sonar;
+  Potentiometer* potentiometer;
+  ButtonImpl* button;
   int myPeriod;
   int timeElapsed;
+//porcate TODO
+  int myDistance;
+  int lastKnownSugar;
 };
 
 #endif
