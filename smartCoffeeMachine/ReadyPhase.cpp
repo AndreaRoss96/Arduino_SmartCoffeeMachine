@@ -22,7 +22,7 @@ bool ReadyPhase::updateAndCheckTime(int basePeriod){
 }
 
 void ReadyPhase::tick(){
-  if(timeElapsed > myPeriod){                    //se è passato troppo tempo cambia fase                                   //restituisce true se tutte le c
+  if(timeElapsed > myPeriod){                    //se è passato troppo tempo cambia fase
     GLOBAL_CLASS.setActualPhase(EnumPhase::ON);
     timeElapsed = 0;
     return;
