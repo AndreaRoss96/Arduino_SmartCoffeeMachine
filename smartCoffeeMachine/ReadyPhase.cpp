@@ -27,7 +27,7 @@ void ReadyPhase::tick(){
     timeElapsed = 0;
     return;
   }
-  if(sonar->getValue() < myDistance){ // se è vero rimane in ReadyPhase
+  if(sonar->getValue() <= myDistance){ // se è vero rimane in ReadyPhase
     timeElapsed = 0;
   }
   if(lastKnownSugar != map(potentiometer->getValue(),0,1023,0,5)){
