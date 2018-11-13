@@ -1,5 +1,4 @@
 #include "ReadyPhase.h"
-#include "Arduino.h"
 
 ReadyPhase::ReadyPhase(Sonar* sonar, Potentiometer* potentiometer, ButtonImpl* button){
   this->sonar = sonar;

@@ -4,6 +4,7 @@
 #define GLOBAL_CLASS GlobalClass::getInstance()
 
 #include "GlobalClass.h"
+#include "Arduino.h"
 
 class Phase {
 public:

@@ -1,11 +1,10 @@
 #include "OnPhase.h"
-#include "Arduino.h"
 //ricordarsi di distinguere ON_ASCENT e ON_DISCENT che hanno tempi diversi
 //time_t start_t, end_t;
 OnPhase::OnPhase(PirImpl* pir, Sonar* sonar) {
   this -> pir = pir;
   this -> sonar = sonar;
-  this -> myPeriodAscent = GLOBAL_CLASS.getDT1();
+  this -> myPeriodAscent = GLOBAL_CLASS.getDT1(); //si possono togliere
   this -> myperiodDiscent = GLOBAL_CLASS.getDT2B();
   myPhase = EnumPhase::ON;
   movement = false;
@@ -13,9 +12,11 @@ OnPhase::OnPhase(PirImpl* pir, Sonar* sonar) {
 }
 
 bool OnPhase::updateAndCheckTime(int basePeriod){
-  if(GLOBAL_CLASS.getActualPhase() == EnumPhase::ON_ASCENT || GLOBAL_CLASS.getActualPhase() == EnumPhase::ON_DISCENT){ // se la fase attuale e' ON qualsiasi
-    timeElapsed += basePeriod;
-    return true;
+    Serial.println("Check di onPhase");
+//  if(GLOBAL_CLASS.getActualPhase() == EnumPhase::ON_ASCENT || GLOBAL_CLASS.getActualPhase() == EnumPhase::ON_DISCENT){ // se la fase attuale e' ON qualsiasi
+    if(GLOBAL_CLASS.getActualPhase() == myPhase){
+        timeElapsed += basePeriod;
+        return true;
     // if(timeElapsed <=  myPeriodAscent){ //se la fase attuale e' onAscent utilizza dt1 altrimenti dt2b
     //     return true; //quindi fa il tick (vd. scheduler)
     // } else { //il tempo è terminato quindi vuol dire che per dt secondi ho rilevato qualcuno a dist < 30 cm
@@ -29,11 +30,15 @@ bool OnPhase::updateAndCheckTime(int basePeriod){
 }
 
 void OnPhase::tick() {
-    Serial.println("Sono nel tick di OnPhase");
+    Serial.println(sonar->getValue());
+    Serial.print(GLOBAL_CLASS.getActualPhase() == EnumPhase::ON ? "SONO IN ON" : "FigliDiPuttana");
     if(sonar->getValue() <= GLOBAL_CLASS.getDist1()){               //controllo se c'è qualcuno vicino
         if(isNear){                                                 //se c'era qualcuno vicion anche prima
+        Serial.println(timeElapsed);
             if(timeElapsed >= GLOBAL_CLASS.getDT1())                //controllo se il tempo passato è soddisfacente
                 GLOBAL_CLASS.setActualPhase(EnumPhase::READY);      //per passare a ready
+                Serial.println("Setto a ready!");
+                Serial.flush();
         } else {                                                    //altrimenti è la prima volta che ho qualcuno vicino
             isNear = true;
             timeElapsed = 0;

@@ -23,6 +23,5 @@ void setup() {
 }
 
 void loop(){
-    Serial.println("Sono in loop");
     scheduler.schedule();
 }
