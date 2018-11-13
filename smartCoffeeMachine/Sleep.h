@@ -9,7 +9,8 @@
 
 class Sleep: public Phase {
 public:
-  Sleep(PirImpl& pir);
+  // Sleep(PirImpl& pir);
+  Sleep(int pinToIntterupt);
   bool updateAndCheckTime(int basePeriod);
   void tick();
 private:

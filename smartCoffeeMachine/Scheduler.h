@@ -3,6 +3,7 @@
 #include "Timer.h"
 #include "Phase.h"
 #define MAX_TASKS 10
+
 class Scheduler {
 
  int basePeriod;
