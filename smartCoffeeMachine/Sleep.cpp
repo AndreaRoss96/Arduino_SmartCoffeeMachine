@@ -20,16 +20,10 @@ void Sleep::tick(){
 
     sleep_mode();//VA A DROMIRE
 
-    Serial.println("ueic ap");
-    Serial.flush();
-
     sleep_disable(); //disabilita la sleep
     detachInterrupt(digitalPinToInterrupt(pin));
 
     GLOBAL_CLASS.setActualPhase(EnumPhase::ON); //passa alla fase on
 }
 
-void Sleep::wakeUp() {
-    Serial.println("Interrupt");
-        Serial.flush();
-};
+void Sleep::wakeUp() {};

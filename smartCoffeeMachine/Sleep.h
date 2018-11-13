@@ -1,4 +1,3 @@
-
 #ifndef __SLEEP__
 #define __SLEEP__
 
@@ -8,12 +7,10 @@
 
 class Sleep: public Phase {
 public:
-  // Sleep(PirImpl& pir);
   Sleep(int pinToIntterupt);
   bool updateAndCheckTime(int basePeriod);
   void tick();
 private:
- // PirImpl& pir;
   int pin;
   static void wakeUp();
 };

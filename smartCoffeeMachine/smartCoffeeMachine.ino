@@ -14,7 +14,7 @@ void setup() {
 //inizializzazione dei componenti
     PirImpl* pir = new PirImpl(2);
     Sonar* sonar = new Sonar(8, 9);
-    Potentiometer* potentiometer = new Potentiometer(6);
+    Potentiometer* potentiometer = new Potentiometer(A5);
     ButtonImpl* button = new ButtonImpl(4);
 //Creazione delle fasi
     Phase* sleep = new Sleep(2);

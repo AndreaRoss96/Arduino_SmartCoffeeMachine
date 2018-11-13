@@ -13,8 +13,6 @@ public:
 private:
   PirImpl* pir;
   Sonar* sonar;
-  int myPeriodAscent;
-  int myperiodDiscent;
   int timeElapsed;
   boolean movement;     //true se c'è del moviemnto, false altrimenti
   boolean isNear;       //true se qualcuno è nelle vicinanze, false altrimenti

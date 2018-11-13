@@ -15,10 +15,7 @@ private:
   Sonar* sonar;
   Potentiometer* potentiometer;
   ButtonImpl* button;
-  int myPeriod;
   int timeElapsed;
-//porcate TODO
-  int myDistance;
   int lastKnownSugar;
 };
 

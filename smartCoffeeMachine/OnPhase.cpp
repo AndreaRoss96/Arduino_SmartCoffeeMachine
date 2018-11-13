@@ -3,15 +3,12 @@
 OnPhase::OnPhase(PirImpl* pir, Sonar* sonar) {
   this -> pir = pir;
   this -> sonar = sonar;
-  this -> myPeriodAscent = GLOBAL_CLASS.getDT1(); //si possono togliere
-  this -> myperiodDiscent = GLOBAL_CLASS.getDT2B();
-  myPhase = EnumPhase::ON;
   movement = false;
   isNear = false;
 }
 
 bool OnPhase::updateAndCheckTime(int basePeriod){
-    if(GLOBAL_CLASS.getActualPhase() == myPhase){
+    if(GLOBAL_CLASS.getActualPhase() == EnumPhase::ON){
         timeElapsed += basePeriod;
         return true; //quindi esegue tick() (vd scheduler)
   } else {

@@ -10,8 +10,6 @@ class Phase {
 public:
   virtual bool updateAndCheckTime(int basePeriod) = 0;
   virtual void tick() = 0;
-protected:
-  EnumPhase myPhase;
 };
 
 #endif
