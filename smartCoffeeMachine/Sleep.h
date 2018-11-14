@@ -1,8 +1,7 @@
 #ifndef __SLEEP__
 #define __SLEEP__
 
-#include "Phase.h"
-#include "PirImpl.h"
+#include "Phase.h
 #include <avr/sleep.h>
 
 class Sleep: public Phase {
