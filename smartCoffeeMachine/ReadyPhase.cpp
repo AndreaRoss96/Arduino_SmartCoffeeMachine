@@ -7,7 +7,7 @@ ReadyPhase::ReadyPhase(Sonar* sonar, Potentiometer* potentiometer, ButtonImpl* b
 
   this->lastKnownSugar = map(potentiometer->getValue(),0,1023,0,5);   //ultimo livello di zucchero misurato
   this->timeElapsed = 0;
-  this->started = false;
+  this->started = true;
 }
 
 bool ReadyPhase::updateAndCheckTime(int basePeriod){
@@ -20,29 +20,29 @@ bool ReadyPhase::updateAndCheckTime(int basePeriod){
 }
 
 void ReadyPhase::tick(){
-    if(started) {
-        if (MsgService.isMsgAvailable()) {
-            MsgService.sendMsg("Welcome!");
-        }
-        started = !started;
+  if(started) {
+    MsgService.sendMsg("Welcome!");
+    started = !started;
+  }
+  if(timeElapsed > GLOBAL_CLASS.getDT2A()){                    //se è passato troppo tempo cambia fase
+    GLOBAL_CLASS.setActualPhase(EnumPhase::ON);
+    Serial.println("Torno in ON");
+    timeElapsed = 0;
+    started = !started;
+  } else {
+    if(sonar->getValue() <= GLOBAL_CLASS.getDist1()){ // se è vero rimane in ReadyPhase
+      timeElapsed = 0;
     }
-    if(timeElapsed > GLOBAL_CLASS.getDT2A()){                    //se è passato troppo tempo cambia fase
-        GLOBAL_CLASS.setActualPhase(EnumPhase::ON);
-        Serial.println("Torno in ON");
-        timeElapsed = 0;
-        started = !started;
-    } else {
-      if(sonar->getValue() <= GLOBAL_CLASS.getDist1()){ // se è vero rimane in ReadyPhase
-        timeElapsed = 0;
-      }
-      int tmp = map(potentiometer->getValue(),0,1023,0,5);
-      if(lastKnownSugar != tmp){
-        lastKnownSugar = tmp;
-      }
-      if(button->isPressed()){
-        GLOBAL_CLASS.setActualPhase(EnumPhase::BUSY);
-        timeElapsed = 0;
-        started = !started;
-      }
+    int tmp = map(potentiometer->getValue(),0,1023,0,5);
+    if(lastKnownSugar != tmp){
+      lastKnownSugar = tmp;
+      Serial.print(lastKnownSugar);
+      Serial.println("Ricordarsi di inviare il livello a java");
     }
+    if(button->isPressed()){
+      GLOBAL_CLASS.setActualPhase(EnumPhase::BUSY);
+      timeElapsed = 0;
+      started = !started;
+    }
+  }
 }

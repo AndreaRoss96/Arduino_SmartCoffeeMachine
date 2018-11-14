@@ -14,6 +14,7 @@ private:
   Led* led1;
   Led* led2;
   Led* led3;
+  bool take;
 };
 
 #endif
