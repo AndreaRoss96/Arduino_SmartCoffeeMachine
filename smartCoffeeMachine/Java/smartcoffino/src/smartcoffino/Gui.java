@@ -2,12 +2,15 @@ package smartcoffino;
 
 import java.awt.Toolkit;
 
+import com.sun.xml.internal.ws.resources.SenderMessages;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import modulo_lab_2_2.msg.jssc.SerialCommChannel;
 
 /**
  * JavaFX entry point, it launches the main menu.
@@ -16,25 +19,33 @@ import javafx.stage.Stage;
 public class Gui extends Application{
 	final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2;
 	final double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 3;
+	private static final String NUMERO_CAFE = "2";
 	private Scene scene;
 	private AnchorPane layout;
 	private Label messages = new Label("ciao");
-	//private int sugarValue;
-	//private int coffeLevel
-	
+	private CommChannel channel;
+	private int sugarValue;
+	private Button but; 
 	
 	@Override
 	public void start(final Stage stage) throws Exception {
 		layout = new AnchorPane();
-		Label title = new Label("Smart coffee");
+		try {
+			CommChannel channel = new SerialCommChannel("COM4", 9600);
+		}catch(Exception e) {
+			System.out.println("Exception");
+		}
+		final Label title = new Label("Smart coffee");
 		AnchorPane.setTopAnchor(title, HEIGHT/20);
 		AnchorPane.setLeftAnchor(title, WIDTH/2.20);
 		Label message = new Label("Message:");
 		Label sugarLevel = new Label("SugarLevel:");
 		Label coffe = new Label("coffe");
-		Button but = new Button("refill");
+		but = new Button("refill");
 		but.setDisable(true);
-		
+		but.setOnAction(e->{
+			serialSend(NUMERO_CAFE);
+		});
 		AnchorPane.setTopAnchor(message, HEIGHT/6);
 		AnchorPane.setLeftAnchor(message, WIDTH/18);
 		AnchorPane.setTopAnchor(messages, HEIGHT/6);
@@ -61,18 +72,56 @@ public class Gui extends Application{
 			System.exit(0);
 		});
 		stage.show();
+		serialRecive();
 	}
 	
 	private void printMessage(String msg) {
 		messages.setText(msg);
 	}
 	
-	private void serialRecive() {
+	private void serialRecive() throws Exception {
+		while (true) {
+			int msg = Integer.parseInt(channel.receiveMsg());
+			if(msg > 1 && msg <8) {
+				sugarValue=msg-2;
+			}else {
+				switch(msg) {
+			
+				case 1 :
+					printMessage("Welcome!");
+					break;
+				case 8 :
+					printMessage("making coffee! :)");
+					making();
+					break;
+				case 9 :
+					printMessage("the coffee is ready! :D");
+					finish();
+					break;
+				case 10 :
+					printMessage("no more coffee. Waiting for recharge");
+					maintenance();
+					break;
+				default :
+					printMessage("internal errorrrrrr");
+					}
+			}
+			Thread.sleep(100);
+		}
+	}
+	
+	private void maintenance() {
+		but.setDisable(false);
+	}
+	private void making() {
 		
+	}
+	
+	private void finish() {
 		
 	}
 	private void serialSend(String msg) {
-		
+		channel.sendMsg(msg);
 	}
 }
 
