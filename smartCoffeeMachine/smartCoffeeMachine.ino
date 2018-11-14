@@ -10,6 +10,7 @@
 #include "BusyPhase.h"
 #include "Led.h"
 #include "MsgService.h"
+#include "DonePhase.h"
 
 Scheduler scheduler;
 void setup() {
@@ -29,12 +30,14 @@ void setup() {
   Phase* on = new OnPhase(pir, sonar);
   Phase* ready = new ReadyPhase(sonar, potentiometer, button);
   Phase* busy = new BusyPhase(led1,led2,led3);
+  Phase* done = new DonePhase(sonar);
 
   scheduler.init(100); //viene chiamato lo scheduler 100 volte/s
   scheduler.addPhase(sleep);
   scheduler.addPhase(on);
   scheduler.addPhase(ready);
   scheduler.addPhase(busy);
+  scheduler.addPhase(done);
 }
 
 void loop(){

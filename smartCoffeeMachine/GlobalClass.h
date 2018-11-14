@@ -5,6 +5,7 @@
 #define DT2B 5000
 #define DT3 5000
 #define DT4 5000
+#define NUM_LED 3
 
 #include "EnumPhase.h"
 #include "Arduino.h"
@@ -93,5 +94,19 @@ class GlobalClass { //SINGLETON
     */
     int getDT4() {
       return DT4;
+    }
+    /*
+    return
+      number of leds
+    */
+    int getNumLed(){
+      return NUM_LED;
+    }
+    /*
+    return
+      time range of a single led
+    */
+    int getTimeRangeLed(){
+      return GLOBAL_CLASS.getDT3()/GLOBAL_CLASS.getNumLed();
     }
 };
