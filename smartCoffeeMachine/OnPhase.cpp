@@ -22,7 +22,7 @@ void OnPhase::tick() {
     if(sonar->getValue() <= GLOBAL_CLASS.getDist1()){               //controllo se c'è qualcuno vicino
         if(isNear){                                                 //se c'era qualcuno vicion anche prima
         Serial.println(timeElapsed);
-            if(timeElapsed >= GLOBAL_CLASS.getDT1()) {           //controllo se il tempo passato è soddisfacente
+            if(timeElapsed >= GLOBAL_CLASS.getDT1()) {              //controllo se il tempo passato è soddisfacente
                 GLOBAL_CLASS.setActualPhase(EnumPhase::READY);      //per passare a ready
                 Serial.println("Setto a ready!");
                 Serial.flush();

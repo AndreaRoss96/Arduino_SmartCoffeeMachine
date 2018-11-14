@@ -5,12 +5,14 @@
 #include "Scheduler.h"
 #include "ButtonImpl.h"
 #include "Potentiometer.h"
+#include "MsgService.h"
 
 Scheduler scheduler;
 
 void setup() {
     Serial.begin(9600);
     Serial.flush();
+    MsgService.init();
 //inizializzazione dei componenti
     PirImpl* pir = new PirImpl(2);
     Sonar* sonar = new Sonar(8, 9);
