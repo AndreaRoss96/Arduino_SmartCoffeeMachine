@@ -1,3 +1,5 @@
+#define BAUD 9600
+
 #include "Sleep.h"
 #include "ReadyPhase.h"
 #include "Sonar.h"
@@ -7,12 +9,13 @@
 #include "Potentiometer.h"
 #include "BusyPhase.h"
 #include "Led.h"
+#include "MsgService.h"
 
 Scheduler scheduler;
-
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(BAUD);
   Serial.flush();
+  MsgService.init(BAUD);
   //inizializzazione dei componenti
   Led* led1 = new Led(5);
   Led* led2 = new Led(6);

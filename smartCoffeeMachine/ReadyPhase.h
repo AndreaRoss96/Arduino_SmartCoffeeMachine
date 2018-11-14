@@ -5,6 +5,7 @@
 #include "Potentiometer.h"
 #include "Sonar.h"
 #include "ButtonImpl.h"
+#include "MsgService.h"
 
 class ReadyPhase: public Phase {
 public:
@@ -17,6 +18,7 @@ private:
   ButtonImpl* button;
   int timeElapsed;
   int lastKnownSugar;
+  boolean started;
 };
 
 #endif
