@@ -33,7 +33,6 @@ void ReadyPhase::tick(){
       }
       if(button->isPressed()){
         GLOBAL_CLASS.setActualPhase(EnumPhase::BUSY);
-        Serial.println("Sono andato in busy");
         timeElapsed = 0;
       }
     }
