@@ -20,8 +20,8 @@ Msg* MsgServiceClass::receiveMsg(){
   }
 }
 
-void MsgServiceClass::init(){
-  Serial.begin(9600);
+void MsgServiceClass::init(int baud){
+  Serial.begin(baud);
   content.reserve(256);
   content = "";
   currentMsg = NULL;

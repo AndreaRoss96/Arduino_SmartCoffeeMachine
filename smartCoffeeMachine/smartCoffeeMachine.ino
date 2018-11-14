@@ -1,3 +1,5 @@
+#define BAUD 9600
+
 #include "Sleep.h"
 #include "ReadyPhase.h"
 #include "Sonar.h"
@@ -10,9 +12,9 @@
 Scheduler scheduler;
 
 void setup() {
-    Serial.begin(9600);
+    Serial.begin(BAUD);
     Serial.flush();
-    MsgService.init();
+    MsgService.init(BAUD);
 //inizializzazione dei componenti
     PirImpl* pir = new PirImpl(2);
     Sonar* sonar = new Sonar(8, 9);

@@ -10,7 +10,7 @@ public:
   Msg(String content){
     this->content = content;
   }
-  
+
   String getContent(){
     return content;
   }
@@ -18,28 +18,27 @@ public:
 
 class Pattern {
 public:
-  virtual boolean match(const Msg& m) = 0;  
+  virtual boolean match(const Msg& m) = 0;
 };
 
 class MsgServiceClass {
-    
-public: 
-  
+
+public:
+
   Msg* currentMsg;
   bool msgAvailable;
 
-  void init();  
+  void init(int baud);  
 
   bool isMsgAvailable();
   Msg* receiveMsg();
 
   bool isMsgAvailable(Pattern& pattern);
   Msg* receiveMsg(Pattern& pattern);
-  
+
   void sendMsg(const String& msg);
 };
 
 extern MsgServiceClass MsgService;
 
 #endif
-
