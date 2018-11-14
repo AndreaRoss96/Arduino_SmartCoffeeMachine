@@ -15,12 +15,16 @@ bool DonePhase::updateAndCheckTime(int basePeriod){
 }
 
 void DonePhase::tick(){
-  if(timeElapsed > GLOBAL_CLASS.getDT4()){
-    timeElapsed = 0;
-    GLOBAL_CLASS.setActualPhase(EnumPhase::READY);
-  } else if (sonar -> getValue() <= GLOBAL_CLASS.getDist2()){
-    Serial.print("ho preso il caffe'");
-    timeElapsed = 0;
-    GLOBAL_CLASS.setActualPhase(EnumPhase::READY);
+  if(GLOBAL_CLASS.getNc() == 0){
+    GLOBAL_CLASS.setActualPhase(EnumPhase::MAINTENANCE);
+  } else{
+    if(timeElapsed > GLOBAL_CLASS.getDT4()){
+      timeElapsed = 0;
+      GLOBAL_CLASS.setActualPhase(EnumPhase::READY);
+    } else if (sonar -> getValue() <= GLOBAL_CLASS.getDist2()){
+      Serial.print("ho preso il caffe'");
+      timeElapsed = 0;
+      GLOBAL_CLASS.setActualPhase(EnumPhase::READY);
+    }
   }
 }

@@ -6,12 +6,14 @@
 #define DT3 5000
 #define DT4 5000
 #define NUM_LED 3
+#define NUM_CAFFE 3
 
 #include "EnumPhase.h"
 #include "Arduino.h"
 
 class GlobalClass { //SINGLETON
   EnumPhase actualPhase = EnumPhase::SLEEP;
+  int nc = NUM_CAFFE;
 
   private:
       GlobalClass() {}
@@ -108,5 +110,18 @@ class GlobalClass { //SINGLETON
     */
     int getTimeRangeLed(){
       return GLOBAL_CLASS.getDT3()/GLOBAL_CLASS.getNumLed();
+    }
+    /*
+    return
+      number of coffes remain
+    */
+    int getNc(){
+      return nc;
+    }
+    /*
+      decrease number of coffes
+    */
+    void decNCoffe(){
+      nc --;
     }
 };
