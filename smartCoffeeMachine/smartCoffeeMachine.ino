@@ -49,6 +49,7 @@ void loop(){
 
 /***********************************************************
             PROTOCOLLO DEI MESSAGGI:
+0 - "" - SLEEP
 1 - "Welcome!" - READY
 2...7 - Livello di zucchero - READY
 8 - "Making coffee" - BUSY

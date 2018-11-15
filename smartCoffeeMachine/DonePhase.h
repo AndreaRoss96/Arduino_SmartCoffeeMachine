@@ -12,6 +12,7 @@ public:
 private:
   Sonar* sonar;
   int timeElapsed;
+  bool printed;                //true se ha stampato, false altrimenti
 };
 
 #endif

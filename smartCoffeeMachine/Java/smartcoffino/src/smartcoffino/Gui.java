@@ -6,6 +6,7 @@ import java.net.URL;
 import com.sun.xml.internal.ws.resources.SenderMessages;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,69 +24,32 @@ public class Gui extends Application {
 	private static final String NUMERO_CAFE = "2";
 	private Scene scene;
 	private AnchorPane layout;
-	private static Label messages = new Label("ciao");
-//	private CommChannel channel;
-	private int sugarValue;
+	private Label messages = new Label("...");
+	private Label sugarValue;
 	private Button but; 
 	private MessageManager myManager;
 	
 	@Override
-	public void start(final Stage stage) throws Exception {
-//		channel = new SerialCommChannel("COM8", 9600);
-		
+	public void start(final Stage stage) throws Exception {		
 		createForm(stage);
 		myManager = new MessageManager(this);
 		Thread t = new Thread(myManager);
-		t.start();
-		
-//		System.out.println("Waiting Arduino for rebooting...");		
-//		Thread.sleep(4000);
-//		System.out.println("Ready.");
-		
-//		while (true) {
-//			int msg = Integer.parseInt(channel.receiveMsg());
-//			if(msg > 1 && msg <8) {
-//				sugarValue=msg-2;
-//			}else {
-//				switch(msg) {
-//			
-//				case 1 :
-//					printMessage("Welcome!");
-//					break;
-//				case 8 :
-//					printMessage("making coffee! :)");
-//					making();
-//					break;
-//				case 9 :
-//					printMessage("the coffee is ready! :D");
-//					finish();
-//					break;
-//				case 10 :
-//					printMessage("no more coffee. Waiting for recharge");
-//					maintenance();
-//					break;
-//				default :
-//					printMessage("internal errorrrrrr");
-//					break;
-//					}
-//			}
-//			Thread.sleep(100);
-//		}
-		
+		t.start();		
 	}
 	
 	private void createForm(final Stage stage) {
 		layout = new AnchorPane();		
 		final Label title = new Label("Smart coffee");
 		title.getStyleClass().add("title");
-		
+		sugarValue = new Label("");
 		Label subtitle = new Label("Message:");
-		Label sugarLevel = new Label("SugarLevel: " + sugarValue);
-		Label coffe = new Label("coffe");
+		Label sugarLevel = new Label("SugarLevel: ");
 		but = new Button("refill");
 		but.setDisable(true);
 		but.setOnAction(e->{
-			myManager.send("2");
+			myManager.send("refill" + NUMERO_CAFE);
+			printMessage("Coffe refilled: " + NUMERO_CAFE);
+			but.setDisable(true);
 		});
 		
 		AnchorPane.setTopAnchor(title, HEIGHT/20);
@@ -96,20 +60,17 @@ public class Gui extends Application {
 		AnchorPane.setTopAnchor(messages, HEIGHT/6);
 		AnchorPane.setLeftAnchor(messages, WIDTH/2.2);
 
-		/*AnchorPane.setTopAnchor(sugar, HEIGHT/9);
-		AnchorPane.setLeftAnchor(sugar, WIDTH/18);*/
+		AnchorPane.setTopAnchor(sugarValue, HEIGHT/3.5);
+		AnchorPane.setLeftAnchor(sugarValue, WIDTH/4);
 		AnchorPane.setTopAnchor(sugarLevel, HEIGHT/3.5);
 		AnchorPane.setLeftAnchor(sugarLevel, WIDTH/18);
 		
 		AnchorPane.setBottomAnchor(but, HEIGHT/20);
 		AnchorPane.setLeftAnchor(but, WIDTH/2.50);
 		
-		AnchorPane.setTopAnchor(coffe, HEIGHT/2.5);
-		AnchorPane.setLeftAnchor(coffe, WIDTH/18);
-		/*AnchorPane.setTopAnchor(coffeLevel, HEIGHT/9);
-		AnchorPane.setLeftAnchor(coffeLevel, WIDTH/2.25);*/
 		
-		layout.getChildren().addAll(title,sugarLevel,coffe,messages, subtitle, but);
+		
+		layout.getChildren().addAll(title,sugarLevel,messages, subtitle, but, sugarValue);
 
 		scene = new Scene(layout, WIDTH, HEIGHT);
 		URL url = this.getClass().getResource("style.css");
@@ -124,62 +85,24 @@ public class Gui extends Application {
 		stage.setOnCloseRequest((e) -> {
 			System.exit(0);
 		});
+		stage.setResizable(false);
 		stage.show();
 	}
 	
 	public void printMessage(String msg) {
-		System.out.println("Mostro " +msg);	
+		System.out.println(msg);	
 		messages.setText(msg);
+		System.out.println(messages.getText());	
 	}
 	
-	private void serialRecive() throws Exception {
-//		
-//		System.out.println("Waiting Arduino for rebooting...");		
-//		Thread.sleep(4000);
-//		System.out.println("Ready.");
-//		
-//		while (true) {
-//			int msg = Integer.parseInt(channel.receiveMsg());
-//			if(msg > 1 && msg <8) {
-//				sugarValue=msg-2;
-//			}else {
-//				switch(msg) {
-//			
-//				case 1 :
-//					printMessage("Welcome!");
-//					break;
-//				case 8 :
-//					printMessage("making coffee! :)");
-//					making();
-//					break;
-//				case 9 :
-//					printMessage("the coffee is ready! :D");
-//					finish();
-//					break;
-//				case 10 :
-//					printMessage("no more coffee. Waiting for recharge");
-//					maintenance();
-//					break;
-//				default :
-//					printMessage("internal errorrrrrr");
-//					break;
-//					}
-//			}
-//			Thread.sleep(100);
-//		}
-	}
-	
-	private void maintenance() {
+	public void maintenance() {
 		but.setDisable(false);
-	}
-	private void making() {
-		
+		myManager.send(NUMERO_CAFE);
 	}
 	
-	private void finish() {
-		
+	public void setSugar(int value) {
+		sugarValue.setText("" + value);
 	}
-	
 }
 
 	

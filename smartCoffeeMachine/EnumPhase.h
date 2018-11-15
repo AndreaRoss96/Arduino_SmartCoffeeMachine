@@ -1,6 +1,6 @@
 enum class EnumPhase{
   SLEEP,
-  ON,         //STATE OF ON PHASE
+  ON,         
   READY,
   BUSY,
   DONE,

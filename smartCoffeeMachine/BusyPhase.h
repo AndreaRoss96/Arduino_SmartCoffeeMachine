@@ -15,6 +15,7 @@ private:
   Led* led2;
   Led* led3;
   bool take;
+  bool printed;             //true se ha insviato il messaggio, false altrimenti
 };
 
 #endif

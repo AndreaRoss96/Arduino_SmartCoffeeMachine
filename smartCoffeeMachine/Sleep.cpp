@@ -10,7 +10,7 @@ bool Sleep::updateAndCheckTime(int basePeriod) {
 }
 
 void Sleep::tick(){
-
+    MsgService.sendMsg("0");
     attachInterrupt(digitalPinToInterrupt(pin), wakeUp, RISING); //quando il pin rileva un movimento sveglia il dispositivo
 
     set_sleep_mode(SLEEP_MODE_PWR_DOWN); //setta la modalità di sleep

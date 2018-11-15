@@ -22,6 +22,7 @@ bool ReadyPhase::updateAndCheckTime(int basePeriod){
 void ReadyPhase::tick(){
   if(started) {
     MsgService.sendMsg("1");
+    MsgService.sendMsg(String(map(potentiometer->getValue(),0,1023,0,5)));
     started = !started;
   }
   if(timeElapsed > GLOBAL_CLASS.getDT2A()){                    //se è passato troppo tempo cambia fase
@@ -35,7 +36,7 @@ void ReadyPhase::tick(){
     int tmp = map(potentiometer->getValue(),0,1023,0,5);
     if(lastKnownSugar != tmp){                      //il valore dello zucchero viene inviato a java solo se è differente dall'ultimo valore di zucchero
       lastKnownSugar = tmp;
-      MsgService.sendMsg(lastKnownSugar+2);
+      MsgService.sendMsg(String(lastKnownSugar+2));
     }
     if(button->isPressed()){
       GLOBAL_CLASS.setActualPhase(EnumPhase::BUSY);

@@ -6,6 +6,7 @@ BusyPhase::BusyPhase(Led* led1,Led* led2,Led* led3){
   this -> led2 = led2;
   this -> led3 = led3;
   this -> take = false;
+  this -> printed = false;
 }
 
 bool BusyPhase::updateAndCheckTime(int basePeriod){
@@ -26,8 +27,12 @@ void BusyPhase::tick(){
     led2 -> switchOff();
     led3 -> switchOff();
     GLOBAL_CLASS.setActualPhase(EnumPhase::DONE);
+    printed = !printed;
   } else {
-     MsgService.sendMsg("8");
+      if(!printed) {
+        MsgService.sendMsg("8");
+        printed = !printed;
+    }
     if(timeElapsed <= GLOBAL_CLASS.getTimeRangeLed() && timeElapsed > 0){     // accensione dei led in maniera progressiva in 3 secondi. uno ogni 1000 millisecondi
       if(!take){
         GLOBAL_CLASS.decNCoffe();

@@ -1,17 +1,19 @@
 package smartcoffino;
 
+import javafx.application.Platform;
 import modulo_lab_2_2.msg.jssc.*;
 
 public class MessageManager implements Runnable {
 	private CommChannel channel;
 	private Gui gui;
+
 	public MessageManager(Gui gui) {
 		this.gui = gui;
 	}
 
 	@Override
 	public void run() {
-		
+
 		try {
 			channel = new SerialCommChannel("COM8", 9600);
 
@@ -21,45 +23,73 @@ public class MessageManager implements Runnable {
 			System.out.println("Ready.");
 
 			while (true) {
-				System.out.println(channel.receiveMsg());
-				Integer msg = Integer.parseInt(channel.receiveMsg().replaceAll(" ", "").replaceAll("\n", ""));
+				int msg = Integer.parseInt(channel.receiveMsg().replaceAll(" ", "").replaceAll("\r", ""));
+				System.out.println("Ho parsato");
 				if (msg > 1 && msg < 8) {
 					System.out.println("" + (msg - 2));
-					// sugarValue=msg-2;
+					Platform.runLater(new Runnable() {
+						public void run() {
+							gui.setSugar(msg - 2);
+						}
+					});
 				} else {
 					switch (msg) {
-
+					case 0:
+						Platform.runLater(new Runnable() {
+							public void run() {
+								gui.printMessage("...");
+							}
+						});
+						break;
 					case 1:
-						gui.printMessage("Welcome!");
+						Platform.runLater(new Runnable() {
+							public void run() {
+								gui.printMessage("Welcome!");
+								try {
+									gui.setSugar(Integer
+											.parseInt(channel.receiveMsg().replaceAll(" ", "").replaceAll("\r", "")));
+								} catch (NumberFormatException | InterruptedException e) {
+									e.printStackTrace();
+								}
+							}
+						});
 						break;
 					case 8:
-						gui.printMessage("making coffee! :)");
-						// making();
+						Platform.runLater(new Runnable() {
+							public void run() {
+								gui.printMessage("making coffee! :)");
+								// making();
+							}
+						});
 						break;
 					case 9:
-						gui.printMessage("the coffee is ready! :D");
-						// finish();
+						Platform.runLater(new Runnable() {
+							public void run() {
+								gui.printMessage("the coffee is ready! :D");
+							}
+						});
 						break;
 					case 10:
-						gui.printMessage("no more coffee. Waiting for recharge");
-						// maintenance();
+						Platform.runLater(new Runnable() {
+							public void run() {
+								gui.printMessage("no more coffee. Waiting for recharge");
+								gui.maintenance();
+							}
+						});
 						break;
 					default:
-						gui.printMessage("internal errorrrrrr");
+						System.out.println("internal errorrrrrr");
 						break;
 					}
 				}
 				Thread.sleep(100);
 			}
 		} catch (Exception e) {
-			System.out.println("Dio piemontese");
-			e.printStackTrace();
 		}
 	}
-	
+
 	public void send(String msg) {
 		channel.sendMsg(msg);
 	}
-	
 
 }
