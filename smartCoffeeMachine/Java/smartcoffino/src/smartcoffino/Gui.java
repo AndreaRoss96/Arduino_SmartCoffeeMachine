@@ -1,6 +1,7 @@
 package smartcoffino;
 
 import java.awt.Toolkit;
+import java.net.URL;
 
 import com.sun.xml.internal.ws.resources.SenderMessages;
 
@@ -26,12 +27,16 @@ public class Gui extends Application {
 //	private CommChannel channel;
 	private int sugarValue;
 	private Button but; 
+	private MessageManager myManager;
 	
 	@Override
 	public void start(final Stage stage) throws Exception {
 //		channel = new SerialCommChannel("COM8", 9600);
 		
 		createForm(stage);
+		myManager = new MessageManager(this);
+		Thread t = new Thread(myManager);
+		t.start();
 		
 //		System.out.println("Waiting Arduino for rebooting...");		
 //		Thread.sleep(4000);
@@ -72,20 +77,24 @@ public class Gui extends Application {
 	private void createForm(final Stage stage) {
 		layout = new AnchorPane();		
 		final Label title = new Label("Smart coffee");
-		AnchorPane.setTopAnchor(title, HEIGHT/20);
-		AnchorPane.setLeftAnchor(title, WIDTH/2.20);
-//	Label message = new Label("Message:");
+		title.getStyleClass().add("title");
+		
+		Label subtitle = new Label("Message:");
 		Label sugarLevel = new Label("SugarLevel: " + sugarValue);
 		Label coffe = new Label("coffe");
 		but = new Button("refill");
 		but.setDisable(true);
 		but.setOnAction(e->{
-			serialSend(NUMERO_CAFE);
+			myManager.send("2");
 		});
-//		AnchorPane.setTopAnchor(message, HEIGHT/6);
-//		AnchorPane.setLeftAnchor(message, WIDTH/18);
+		
+		AnchorPane.setTopAnchor(title, HEIGHT/20);
+		AnchorPane.setLeftAnchor(title, WIDTH/2.80);
+		
+		AnchorPane.setTopAnchor(subtitle, HEIGHT/6);
+		AnchorPane.setLeftAnchor(subtitle, WIDTH/18);
 		AnchorPane.setTopAnchor(messages, HEIGHT/6);
-		AnchorPane.setLeftAnchor(messages, WIDTH/2.1);
+		AnchorPane.setLeftAnchor(messages, WIDTH/2.2);
 
 		/*AnchorPane.setTopAnchor(sugar, HEIGHT/9);
 		AnchorPane.setLeftAnchor(sugar, WIDTH/18);*/
@@ -93,24 +102,32 @@ public class Gui extends Application {
 		AnchorPane.setLeftAnchor(sugarLevel, WIDTH/18);
 		
 		AnchorPane.setBottomAnchor(but, HEIGHT/20);
-		AnchorPane.setLeftAnchor(but, WIDTH/2.0);
+		AnchorPane.setLeftAnchor(but, WIDTH/2.50);
 		
 		AnchorPane.setTopAnchor(coffe, HEIGHT/2.5);
 		AnchorPane.setLeftAnchor(coffe, WIDTH/18);
 		/*AnchorPane.setTopAnchor(coffeLevel, HEIGHT/9);
 		AnchorPane.setLeftAnchor(coffeLevel, WIDTH/2.25);*/
 		
-		layout.getChildren().addAll(title,sugarLevel,coffe,messages, /*message,*/ but);
+		layout.getChildren().addAll(title,sugarLevel,coffe,messages, subtitle, but);
 
 		scene = new Scene(layout, WIDTH, HEIGHT);
+		URL url = this.getClass().getResource("style.css");
+	    if (url == null) {
+	        System.out.println("Resource not found. Aborting.");
+	        System.exit(-1);
+	    }
+	    String css = url.toExternalForm(); 
+	    scene.getStylesheets().add(css);
 		stage.setScene(scene);
+		
 		stage.setOnCloseRequest((e) -> {
 			System.exit(0);
 		});
 		stage.show();
 	}
 	
-	public static void printMessage(String msg) {
+	public void printMessage(String msg) {
 		System.out.println("Mostro " +msg);	
 		messages.setText(msg);
 	}
@@ -162,9 +179,7 @@ public class Gui extends Application {
 	private void finish() {
 		
 	}
-	private void serialSend(String msg) {
-//		channel.sendMsg(msg);
-	}
+	
 }
 
 	
