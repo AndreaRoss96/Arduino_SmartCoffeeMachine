@@ -10,6 +10,7 @@ public:
   void tick();
 private:
   int timeElapsed;
+  bollean printed;                //se true, significa che ha già inviato le informazioni a java, altrimenti false
 };
 
 #endif

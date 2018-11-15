@@ -21,7 +21,7 @@ bool ReadyPhase::updateAndCheckTime(int basePeriod){
 
 void ReadyPhase::tick(){
   if(started) {
-    MsgService.sendMsg("Welcome!");
+    MsgService.sendMsg("1");
     started = !started;
   }
   if(timeElapsed > GLOBAL_CLASS.getDT2A()){                    //se è passato troppo tempo cambia fase
