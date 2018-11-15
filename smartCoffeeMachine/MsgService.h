@@ -28,7 +28,7 @@ public:
   Msg* currentMsg;
   bool msgAvailable;
 
-  void init(int baud);  
+  void init();  
 
   bool isMsgAvailable();
   Msg* receiveMsg();

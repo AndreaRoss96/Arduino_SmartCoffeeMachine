@@ -7,9 +7,6 @@ Sonar::Sonar(int pinEcho, int pinTrig){
   this->pinTrig = pinTrig;
   pinMode(pinTrig,OUTPUT);
   pinMode(pinEcho,INPUT);
-
-  Serial.println("Sonar");
-  Serial.flush();
 }
 
 float Sonar::getValue(){

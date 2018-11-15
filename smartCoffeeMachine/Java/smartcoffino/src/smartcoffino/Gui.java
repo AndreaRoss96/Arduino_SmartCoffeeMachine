@@ -10,44 +10,80 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import modulo_lab_2_2.msg.jssc.SerialCommChannel;
+//import modulo_lab_2_2.msg.jssc.*;
 
 /**
  * JavaFX entry point, it launches the main menu.
  */
 
-public class Gui extends Application{
+public class Gui extends Application {
 	final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2;
 	final double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 3;
 	private static final String NUMERO_CAFE = "2";
 	private Scene scene;
 	private AnchorPane layout;
-	private Label messages = new Label("ciao");
-	private CommChannel channel;
+	private static Label messages = new Label("ciao");
+//	private CommChannel channel;
 	private int sugarValue;
 	private Button but; 
 	
 	@Override
 	public void start(final Stage stage) throws Exception {
-		layout = new AnchorPane();
-		try {
-			CommChannel channel = new SerialCommChannel("COM4", 9600);
-		}catch(Exception e) {
-			System.out.println("Exception");
-		}
+//		channel = new SerialCommChannel("COM8", 9600);
+		
+		createForm(stage);
+		
+//		System.out.println("Waiting Arduino for rebooting...");		
+//		Thread.sleep(4000);
+//		System.out.println("Ready.");
+		
+//		while (true) {
+//			int msg = Integer.parseInt(channel.receiveMsg());
+//			if(msg > 1 && msg <8) {
+//				sugarValue=msg-2;
+//			}else {
+//				switch(msg) {
+//			
+//				case 1 :
+//					printMessage("Welcome!");
+//					break;
+//				case 8 :
+//					printMessage("making coffee! :)");
+//					making();
+//					break;
+//				case 9 :
+//					printMessage("the coffee is ready! :D");
+//					finish();
+//					break;
+//				case 10 :
+//					printMessage("no more coffee. Waiting for recharge");
+//					maintenance();
+//					break;
+//				default :
+//					printMessage("internal errorrrrrr");
+//					break;
+//					}
+//			}
+//			Thread.sleep(100);
+//		}
+		
+	}
+	
+	private void createForm(final Stage stage) {
+		layout = new AnchorPane();		
 		final Label title = new Label("Smart coffee");
 		AnchorPane.setTopAnchor(title, HEIGHT/20);
 		AnchorPane.setLeftAnchor(title, WIDTH/2.20);
-		Label message = new Label("Message:");
-		Label sugarLevel = new Label("SugarLevel:");
+//	Label message = new Label("Message:");
+		Label sugarLevel = new Label("SugarLevel: " + sugarValue);
 		Label coffe = new Label("coffe");
 		but = new Button("refill");
 		but.setDisable(true);
 		but.setOnAction(e->{
 			serialSend(NUMERO_CAFE);
 		});
-		AnchorPane.setTopAnchor(message, HEIGHT/6);
-		AnchorPane.setLeftAnchor(message, WIDTH/18);
+//		AnchorPane.setTopAnchor(message, HEIGHT/6);
+//		AnchorPane.setLeftAnchor(message, WIDTH/18);
 		AnchorPane.setTopAnchor(messages, HEIGHT/6);
 		AnchorPane.setLeftAnchor(messages, WIDTH/2.1);
 
@@ -64,7 +100,7 @@ public class Gui extends Application{
 		/*AnchorPane.setTopAnchor(coffeLevel, HEIGHT/9);
 		AnchorPane.setLeftAnchor(coffeLevel, WIDTH/2.25);*/
 		
-		layout.getChildren().addAll(title,sugarLevel,coffe,messages,message,but);
+		layout.getChildren().addAll(title,sugarLevel,coffe,messages, /*message,*/ but);
 
 		scene = new Scene(layout, WIDTH, HEIGHT);
 		stage.setScene(scene);
@@ -72,42 +108,48 @@ public class Gui extends Application{
 			System.exit(0);
 		});
 		stage.show();
-		serialRecive();
 	}
 	
-	private void printMessage(String msg) {
+	public static void printMessage(String msg) {
+		System.out.println("Mostro " +msg);	
 		messages.setText(msg);
 	}
 	
 	private void serialRecive() throws Exception {
-		while (true) {
-			int msg = Integer.parseInt(channel.receiveMsg());
-			if(msg > 1 && msg <8) {
-				sugarValue=msg-2;
-			}else {
-				switch(msg) {
-			
-				case 1 :
-					printMessage("Welcome!");
-					break;
-				case 8 :
-					printMessage("making coffee! :)");
-					making();
-					break;
-				case 9 :
-					printMessage("the coffee is ready! :D");
-					finish();
-					break;
-				case 10 :
-					printMessage("no more coffee. Waiting for recharge");
-					maintenance();
-					break;
-				default :
-					printMessage("internal errorrrrrr");
-					}
-			}
-			Thread.sleep(100);
-		}
+//		
+//		System.out.println("Waiting Arduino for rebooting...");		
+//		Thread.sleep(4000);
+//		System.out.println("Ready.");
+//		
+//		while (true) {
+//			int msg = Integer.parseInt(channel.receiveMsg());
+//			if(msg > 1 && msg <8) {
+//				sugarValue=msg-2;
+//			}else {
+//				switch(msg) {
+//			
+//				case 1 :
+//					printMessage("Welcome!");
+//					break;
+//				case 8 :
+//					printMessage("making coffee! :)");
+//					making();
+//					break;
+//				case 9 :
+//					printMessage("the coffee is ready! :D");
+//					finish();
+//					break;
+//				case 10 :
+//					printMessage("no more coffee. Waiting for recharge");
+//					maintenance();
+//					break;
+//				default :
+//					printMessage("internal errorrrrrr");
+//					break;
+//					}
+//			}
+//			Thread.sleep(100);
+//		}
 	}
 	
 	private void maintenance() {
@@ -121,7 +163,7 @@ public class Gui extends Application{
 		
 	}
 	private void serialSend(String msg) {
-		channel.sendMsg(msg);
+//		channel.sendMsg(msg);
 	}
 }
 

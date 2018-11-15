@@ -16,8 +16,8 @@
 Scheduler scheduler;
 void setup() {
   Serial.begin(BAUD);
+  MsgService.init();
   Serial.flush();
-  MsgService.init(BAUD);
   //inizializzazione dei componenti
   Led* led1 = new Led(5);
   Led* led2 = new Led(6);
@@ -33,8 +33,8 @@ void setup() {
   Phase* busy = new BusyPhase(led1,led2,led3);
   Phase* done = new DonePhase(sonar);
   Phase* maintenance = new Maintenance();
-
-  scheduler.init(100); //viene chiamato lo scheduler 100 volte/s
+  //inizializzazione e costruzione dello scheduler
+  scheduler.init(100); //viene richiamato lo scheduler ogni 100ms
   scheduler.addPhase(sleep);
   scheduler.addPhase(on);
   scheduler.addPhase(ready);
