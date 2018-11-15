@@ -124,4 +124,8 @@ class GlobalClass { //SINGLETON
     void decNCoffe(){
       nc --;
     }
+
+    void refillCoffee(int coffeeQuantity) {
+        nc = coffeeQuantity;
+    }
 };

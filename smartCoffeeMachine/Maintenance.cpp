@@ -1,5 +1,10 @@
 #include "Maintenance.h"
 
+using namespace std;
+
+using namespace std;
+#include <string.h>
+
 Maintenance::Maintenance(){
   this->timeElapsed = 0;
   this->printed = false;
@@ -21,7 +26,11 @@ void Maintenance::tick(){
     printed = !printed;
   }
   if(!printed) {
-    Serial.println("10");
-     prited = !printed;
+    MsgService.sendMsg("10");
+     printed = !printed;
+  }
+  if(MsgService.isMsgAvailable()) {
+    Msg * msg = MsgService.receiveMsg();                        //riceve il messaggio da java
+    GLOBAL_CLASS.refillCoffee(msg->getContent().toInt());    //fa il parse della stringa che gli viene ritornata e refilla la macchinetta
   }
 }

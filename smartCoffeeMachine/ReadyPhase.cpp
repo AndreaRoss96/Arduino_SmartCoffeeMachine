@@ -26,18 +26,16 @@ void ReadyPhase::tick(){
   }
   if(timeElapsed > GLOBAL_CLASS.getDT2A()){                    //se è passato troppo tempo cambia fase
     GLOBAL_CLASS.setActualPhase(EnumPhase::ON);
-    Serial.println("Torno in ON");
     timeElapsed = 0;
     started = !started;
   } else {
-    if(sonar->getValue() <= GLOBAL_CLASS.getDist1()){ // se è vero rimane in ReadyPhase
+    if(sonar->getValue() <= GLOBAL_CLASS.getDist1()){       // se è vero rimane in ReadyPhase
       timeElapsed = 0;
     }
     int tmp = map(potentiometer->getValue(),0,1023,0,5);
-    if(lastKnownSugar != tmp){
+    if(lastKnownSugar != tmp){                      //il valore dello zucchero viene inviato a java solo se è differente dall'ultimo valore di zucchero
       lastKnownSugar = tmp;
-      Serial.print(lastKnownSugar);
-      Serial.println("Ricordarsi di inviare il livello a java");
+      MsgService.sendMsg(lastKnownSugar+2);
     }
     if(button->isPressed()){
       GLOBAL_CLASS.setActualPhase(EnumPhase::BUSY);

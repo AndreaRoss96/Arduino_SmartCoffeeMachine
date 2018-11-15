@@ -5,6 +5,7 @@
 
 #include "GlobalClass.h"
 #include "Arduino.h"
+#include "MsgService.h"
 
 class Phase {
 public:

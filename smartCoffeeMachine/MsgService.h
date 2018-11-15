@@ -28,13 +28,13 @@ public:
   Msg* currentMsg;
   bool msgAvailable;
 
-  void init();  
+  void init();
 
   bool isMsgAvailable();
   Msg* receiveMsg();
 
-  bool isMsgAvailable(Pattern& pattern);
-  Msg* receiveMsg(Pattern& pattern);
+  // bool isMsgAvailable(Pattern& pattern);
+  // Msg* receiveMsg(Pattern& pattern);
 
   void sendMsg(const String& msg);
 };

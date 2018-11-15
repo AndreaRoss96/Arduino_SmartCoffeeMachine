@@ -21,8 +21,7 @@ void OnPhase::tick() {
         if(isNear){                                                 //se c'era qualcuno vicion anche prima
             if(timeElapsed >= GLOBAL_CLASS.getDT1()) {              //controllo se il tempo passato è soddisfacente
                 GLOBAL_CLASS.setActualPhase(EnumPhase::READY);      //per passare a ready
-                Serial.println("Setto a ready!");
-                Serial.flush();
+                // Serial.println("Setto a ready!");
             }
         } else {                                                    //altrimenti è la prima volta che ho qualcuno vicino
             isNear = true;

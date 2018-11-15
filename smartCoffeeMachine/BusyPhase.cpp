@@ -21,16 +21,17 @@ void BusyPhase::tick(){
   if(timeElapsed > GLOBAL_CLASS.getDT3()){                       // se il tempo per la fase di busy e' finito passa alla fase di done e spegni tutti i led.
     take = false;
     timeElapsed = 0;
-    Serial.println("Vado in DONE");
+    // Serial.println("Vado in DONE");
     led1 -> switchOff();
     led2 -> switchOff();
     led3 -> switchOff();
     GLOBAL_CLASS.setActualPhase(EnumPhase::DONE);
   } else {
+     MsgService.sendMsg("8");
     if(timeElapsed <= GLOBAL_CLASS.getTimeRangeLed() && timeElapsed > 0){     // accensione dei led in maniera progressiva in 3 secondi. uno ogni 1000 millisecondi
       if(!take){
         GLOBAL_CLASS.decNCoffe();
-        Serial.println(GLOBAL_CLASS.getNc());
+        // Serial.println(GLOBAL_CLASS.getNc());
       }
       take = true;
       led1 -> switchOn();                                                     // verifica se il tempo trascorso e' minore o uguale a 5 secondi diviso il numero di led (questo calcolo equivale a getTimeRangeLed)

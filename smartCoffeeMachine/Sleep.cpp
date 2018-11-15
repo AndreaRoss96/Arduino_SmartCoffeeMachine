@@ -10,8 +10,6 @@ bool Sleep::updateAndCheckTime(int basePeriod) {
 }
 
 void Sleep::tick(){
-    Serial.println("dormo");
-    Serial.flush();
 
     attachInterrupt(digitalPinToInterrupt(pin), wakeUp, RISING); //quando il pin rileva un movimento sveglia il dispositivo
 
