@@ -22,7 +22,7 @@ public class MessageManager implements Runnable {
 
 			while (true) {
 				System.out.println(channel.receiveMsg());
-				Integer msg = Integer.parseInt(channel.receiveMsg().replaceAll(" ", ""));
+				Integer msg = Integer.parseInt(channel.receiveMsg().replaceAll(" ", "").replaceAll("\n", ""));
 				if (msg > 1 && msg < 8) {
 					System.out.println("" + (msg - 2));
 					// sugarValue=msg-2;
