@@ -18,7 +18,7 @@ bool OnPhase::updateAndCheckTime(int basePeriod){
 
 void OnPhase::tick() {
     if(sonar->getValue() <= GLOBAL_CLASS.getDist1()){               //controllo se c'è qualcuno vicino
-        if(isNear){                                                 //se c'era qualcuno vicion anche prima
+        if(isNear){                                                 //se c'era qualcuno vicino anche prima
             if(timeElapsed >= GLOBAL_CLASS.getDT1()) {              //controllo se il tempo passato è soddisfacente
                 GLOBAL_CLASS.setActualPhase(EnumPhase::READY);      //per passare a ready
             }
