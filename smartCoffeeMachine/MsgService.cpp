@@ -45,19 +45,3 @@ void serialEvent() {
     }
   }
 }
-//
-// bool MsgServiceClass::isMsgAvailable(Pattern& pattern){
-//   return (msgAvailable && pattern.match(*currentMsg));
-// }
-//
-// Msg* MsgServiceClass::receiveMsg(Pattern& pattern){
-//   if (msgAvailable && pattern.match(*currentMsg)){
-//     Msg* msg = currentMsg;
-//     msgAvailable = false;
-//     currentMsg = NULL;
-//     content = "";
-//     return msg;
-//   } else {
-//     return NULL;
-//   }
-//}

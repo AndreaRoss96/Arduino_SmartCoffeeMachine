@@ -24,9 +24,7 @@ public class MessageManager implements Runnable {
 
 			while (true) {
 				int msg = Integer.parseInt(channel.receiveMsg().replaceAll(" ", "").replaceAll("\r", ""));
-				System.out.println("Ho parsato");
 				if (msg > 1 && msg < 8) {
-					System.out.println("" + (msg - 2));
 					Platform.runLater(new Runnable() {
 						public void run() {
 							gui.setSugar(msg - 2);
@@ -58,7 +56,6 @@ public class MessageManager implements Runnable {
 						Platform.runLater(new Runnable() {
 							public void run() {
 								gui.printMessage("making coffee! :)");
-								// making();
 							}
 						});
 						break;

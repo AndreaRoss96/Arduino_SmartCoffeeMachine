@@ -3,20 +3,12 @@ package smartcoffino;
 import java.awt.Toolkit;
 import java.net.URL;
 
-import com.sun.xml.internal.ws.resources.SenderMessages;
-
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-//import modulo_lab_2_2.msg.jssc.*;
-
-/**
- * JavaFX entry point, it launches the main menu.
- */
 
 public class Gui extends Application {
 	final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2;
@@ -90,14 +82,11 @@ public class Gui extends Application {
 	}
 	
 	public void printMessage(String msg) {
-		System.out.println(msg);	
 		messages.setText(msg);
-		System.out.println(messages.getText());	
 	}
 	
 	public void maintenance() {
 		but.setDisable(false);
-		myManager.send(NUMERO_CAFE);
 	}
 	
 	public void setSugar(int value) {
