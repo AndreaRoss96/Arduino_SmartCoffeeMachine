@@ -3,7 +3,7 @@
 #define DT1 1000
 #define DT2A 5000
 #define DT2B 5000
-#define DT3 5000
+#define DT3 3000
 #define DT4 5000
 #define NUM_LED 3
 #define NUM_CAFFE 3
