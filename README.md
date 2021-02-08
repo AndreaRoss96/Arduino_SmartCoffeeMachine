@@ -8,7 +8,7 @@ An embedded system implementing a smart coffee machine is to be realised.
 
 HW components
 
-![alt text](https://github.com/AndreaRoss96/Arduino_SmartCoffeeMachine/res/pasted image 0.png)
+![alt text](https://github.com/AndreaRoss96/Arduino_SmartCoffeeMachine/blob/master/res/general_scheme.png)
 
 
 3 green LEDs (L1, L2, L3)
@@ -62,6 +62,6 @@ DT3 (Coffee making process duration) = 3 s
 DT4 (Max time to remove coffee) = 5 s
 
 
-![alt text](https://github.com/AndreaRoss96/Arduino_SmartCoffeeMachine/res/frizzing_scheme.png)
+![alt text](https://github.com/AndreaRoss96/Arduino_SmartCoffeeMachine/blob/master/res/fritzing_scheme.jpg)
 
 
